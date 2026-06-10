@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Analyse page: shake validation animation ────────────── */
+@keyframes fa-shake {
+  0%, 100% { transform: translateX(0); }
+  15%       { transform: translateX(-6px); }
+  30%       { transform: translateX(6px); }
+  45%       { transform: translateX(-4px); }
+  60%       { transform: translateX(4px); }
+  75%       { transform: translateX(-2px); }
+  90%       { transform: translateX(2px); }
+}
+
+@keyframes fa-location-search-spin {
+  to { transform: rotate(360deg); }
+}
+
+.fa-location-search-spinner {
+  animation: fa-location-search-spin 0.8s linear infinite;
+}
+.fa-shake-anim { animation: fa-shake 0.45s cubic-bezier(0.36,0.07,0.19,0.97) both; }
+
+/* ─── Analyse page: spinner for Loader2 icon ─────────────── */
+@keyframes fa-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.fa-spin-anim { animation: fa-spin 0.9s linear infinite; }
+
+/* ─── Font utilities ─────────────────────────── */
+.font-playfair { font-family: 'Playfair Display', Georgia, serif; }
+.font-inter    { font-family: 'Inter', system-ui, sans-serif; }
+.font-mono-sp  { font-family: 'Space Mono', 'Courier New', monospace; }
+.font-telugu   { font-family: 'Noto Sans Telugu', sans-serif; }
+
+/* ─── Smooth scrollbar ────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a1a0a; }
+::-webkit-scrollbar-thumb { background: #1a3a1a; border-radius: 3px; }
+
+/* ─── Step cards hover ───────────────────────── */
+.step-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.step-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(245, 158, 11, 0.4);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(245, 158, 11, 0.05);
+}
+
+/* ─── Hero Step Card ─────────────────────────── */
+.step-card-hero {
+  background: rgba(245, 158, 11, 0.03) !important;
+  border: 1px solid rgba(245, 158, 11, 0.2) !important;
+  box-shadow: 0 4px 30px rgba(245, 158, 11, 0.02);
+}
+.step-card-hero:hover {
+  background: rgba(245, 158, 11, 0.08) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 12px 40px -10px rgba(245, 158, 11, 0.15), 0 0 25px rgba(245, 158, 11, 0.08);
+}
+
+/* ─── Risk card hover ────────────────────────── */
+.risk-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.risk-card:hover {
+  transform: translateY(-4px);
+}
+
+/* ─── Pulsing dot ────────────────────────────── */
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+.ping { animation: ping 1.2s cubic-bezier(0,0,0.2,1) infinite; }
+
+/* ─── Problem section stat divider ──────────── */
+.stat-divider {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 24px;
+  padding-bottom: 4px;
+}
+
+/* ─── Critical card pulsing glow ────────────── */
+@keyframes fa-critical-glow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.4), inset 0 0 10px rgba(220, 38, 38, 0.15);
+    border-color: rgba(220, 38, 38, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(220, 38, 38, 0.8), inset 0 0 15px rgba(220, 38, 38, 0.35);
+    border-color: rgba(220, 38, 38, 0.8);
+  }
+}
+.fa-critical-glow-anim {
+  animation: fa-critical-glow 2s infinite ease-in-out;
+}
+
+/* ─── Voice icon subtle pulse ────────────────── */
+@keyframes fa-voice-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+.fa-voice-pulse-anim {
+  display: inline-block;
+  animation: fa-voice-pulse 1.8s infinite ease-in-out;
+}
+
+/* ─── 3D crop rotation ───────────────────────── */
+@keyframes rotateCrop {
+  0%   { transform: perspective(400px) rotateY(0deg) scale(1); }
+  50%  { transform: perspective(400px) rotateY(180deg) scale(1.05); }
+  100% { transform: perspective(400px) rotateY(360deg) scale(1); }
+}
+.fa-rotate-crop { animation: rotateCrop 6s linear infinite; }
+
+/* ─── Floating card scroll column ────────────── */
+.rv-col { overflow-y: auto; scrollbar-width: none; }
+.rv-col::-webkit-scrollbar { display: none; }

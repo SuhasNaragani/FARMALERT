@@ -1,0 +1,56 @@
+# ─── Environment & Secrets ──────────────────────────────────────────────────
+# NEVER commit these — they contain real API keys
+.env
+.env.local
+.env.production
+.env.development
+.env.staging
+backend/.env
+*.env
+
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+venv/
+env/
+.venv/
+backend/venv/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# ─── Node / Frontend ─────────────────────────────────────────────────────────
+node_modules/
+dist/
+build/
+.next/
+.nuxt/
+.cache/
+
+# ─── Logs ────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pip-log.txt
+
+# ─── OS & Editor ─────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+.idea/
+.vscode/settings.json
+*.swp
+*.swo
+
+# ─── Misc ────────────────────────────────────────────────────────────────────
+*.zip
+*.tar.gz
+coverage/
+.coverage
+htmlcov/

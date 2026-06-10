@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo *)",
+      "WebFetch(domain:github.com)",
+      "PowerShell(Get-ChildItem \"$env:APPDATA\\\\Antigravity\\\\User\" -Force -ErrorAction SilentlyContinue | Select-Object FullName, Name)"
+    ]
+  }
+}

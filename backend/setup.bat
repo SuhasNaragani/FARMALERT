@@ -1,0 +1,16 @@
+@echo off
+echo Setting up FarmAlert Backend...
+
+echo Creating virtual environment...
+python -m venv venv
+
+echo Activating virtual environment...
+call venv\Scripts\activate.bat
+
+echo Installing dependencies...
+pip install -r requirements.txt
+
+echo Starting FarmAlert backend server...
+uvicorn app.main:app --reload --port 8000
+
+pause
