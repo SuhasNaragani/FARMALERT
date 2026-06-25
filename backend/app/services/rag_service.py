@@ -14,12 +14,26 @@ _cache: OrderedDict = OrderedDict()
 MAX_CACHE_SIZE = 100
 
 # --- Clients ---
-_genai_client = genai.Client(api_key=settings.GEMINI_RAG_API_KEY)
-_pc = Pinecone(api_key=settings.PINECONE_API_KEY)
-_index = _pc.Index(host=settings.PINECONE_HOST)
+_genai_client = None
+_pc = None
+_index = None
+
+def _get_clients():
+    global _genai_client, _pc, _index
+    if _genai_client is None:
+        print(f"Initializing RAG clients...", flush=True)
+        print(f"GEMINI_RAG_API_KEY present: {bool(settings.GEMINI_RAG_API_KEY)}", flush=True)
+        print(f"PINECONE_API_KEY present: {bool(settings.PINECONE_API_KEY)}", flush=True)
+        print(f"PINECONE_HOST present: {bool(settings.PINECONE_HOST)}", flush=True)
+        _genai_client = genai.Client(api_key=settings.GEMINI_RAG_API_KEY)
+        _pc = Pinecone(api_key=settings.PINECONE_API_KEY)
+        _index = _pc.Index(host=settings.PINECONE_HOST)
+        print("RAG clients initialized successfully", flush=True)
+    return _genai_client, _index
 
 def _get_embedding(text: str) -> list[float]:
-    response = _genai_client.models.embed_content(
+    client, _ = _get_clients()
+    response = client.models.embed_content(
         model="gemini-embedding-001",
         contents=text,
         config=EmbedContentConfig(
@@ -30,7 +44,8 @@ def _get_embedding(text: str) -> list[float]:
     return response.embeddings[0].values
 
 def _retrieve_chunks(query_vector: list[float], top_k: int = 5) -> list[str]:
-    results = _index.query(
+    _, index = _get_clients()
+    results = index.query(
         vector=query_vector,
         top_k=top_k,
         include_metadata=True,
@@ -52,7 +67,8 @@ FARMER'S QUESTION:
 {question}
 
 ANSWER:"""
-        response = _genai_client.models.generate_content(
+        client, _ = _get_clients()
+        response = client.models.generate_content(
             model="gemini-2.5-flash",
             contents=prompt,
         )
