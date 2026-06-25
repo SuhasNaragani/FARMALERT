@@ -8,13 +8,6 @@
 
 ---
 
-## 📸 Screenshots
-
-<!-- Add screenshots here -->
-> _Dashboard · Risk analysis · RAG knowledge base chat_
-
----
-
 ## 🗺️ System Architecture
 
 ![FarmAlert System Architecture](./docs/farmalert_complete_system_architecture.png)
