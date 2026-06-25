@@ -5,6 +5,10 @@ from google.genai.types import EmbedContentConfig
 from pinecone import Pinecone
 from app.config import settings
 
+print("RAG SERVICE LOADED - PINECONE_API_KEY present:", bool(settings.PINECONE_API_KEY), flush=True)
+print("RAG SERVICE LOADED - GEMINI_RAG_API_KEY present:", bool(settings.GEMINI_RAG_API_KEY), flush=True)
+print("RAG SERVICE LOADED - PINECONE_HOST present:", bool(settings.PINECONE_HOST), flush=True)
+
 # --- Cache ---
 _cache: OrderedDict = OrderedDict()
 MAX_CACHE_SIZE = 100
@@ -55,39 +59,46 @@ ANSWER:"""
         return response.text.strip()
     except Exception as e:
         import traceback
-        print(f"GENERATION ERROR: {e}")
-        print(traceback.format_exc())
+        print(f"GENERATION ERROR: {e}", flush=True)
+        print(traceback.format_exc(), flush=True)
         raise
 
 def answer_question(question: str, crop: str = "", stage: str = "", location: str = "") -> dict:
-    # Build cache key from full context
-    cache_key = f"{question}|{crop}|{stage}|{location}"
+    try:
+        # Build cache key from full context
+        cache_key = f"{question}|{crop}|{stage}|{location}"
 
-    # Check cache first
-    if cache_key in _cache:
-        _cache.move_to_end(cache_key)
-        return {"answer": _cache[cache_key], "cached": True}
+        # Check cache first
+        if cache_key in _cache:
+            _cache.move_to_end(cache_key)
+            return {"answer": _cache[cache_key], "cached": True}
 
-    # Build enriched query for better retrieval
-    enriched_query = question
-    context_parts = []
-    if crop:
-        context_parts.append(f"crop: {crop}")
-    if stage:
-        context_parts.append(f"stage: {stage}")
-    if location:
-        context_parts.append(f"location: {location}")
-    if context_parts:
-        enriched_query = f"{question} — {', '.join(context_parts)}"
+        # Build enriched query for better retrieval
+        enriched_query = question
+        context_parts = []
+        if crop:
+            context_parts.append(f"crop: {crop}")
+        if stage:
+            context_parts.append(f"stage: {stage}")
+        if location:
+            context_parts.append(f"location: {location}")
+        if context_parts:
+            enriched_query = f"{question} — {', '.join(context_parts)}"
 
-    # Retrieve and generate
-    query_vector = _get_embedding(enriched_query)
-    chunks = _retrieve_chunks(query_vector)
-    answer = _generate_answer(question, chunks)
+        # Retrieve and generate
+        query_vector = _get_embedding(enriched_query)
+        chunks = _retrieve_chunks(query_vector)
+        answer = _generate_answer(question, chunks)
 
-    # Store in cache, evict oldest if full
-    if len(_cache) >= MAX_CACHE_SIZE:
-        _cache.popitem(last=False)
-    _cache[cache_key] = answer
+        # Store in cache, evict oldest if full
+        if len(_cache) >= MAX_CACHE_SIZE:
+            _cache.popitem(last=False)
+        _cache[cache_key] = answer
 
-    return {"answer": answer, "cached": False}
+        return {"answer": answer, "cached": False}
+    except Exception as e:
+        import traceback
+        error_msg = traceback.format_exc()
+        print(f"ANSWER_QUESTION ERROR: {e}", flush=True)
+        print(error_msg, flush=True)
+        raise
