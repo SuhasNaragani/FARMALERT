@@ -5,6 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
+from pydantic import BaseModel
 from app.models import FarmInput, ClimateRiskAnalysisResponse
 from app.services.weather import WeatherService
 from app.services.climate import ClimateService
@@ -12,6 +13,7 @@ from app.services.risk_engine import RiskEngine
 from app.services.gemini_service import GeminiService
 from app.services.ndvi import fetch_ndvi
 from app.services.water import WaterService
+from app.services.rag_service import answer_question
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -49,6 +51,12 @@ app.add_middleware(
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
 )
+
+class KnowledgeBaseRequest(BaseModel):
+    question: str
+    crop: str = ""
+    stage: str = ""
+    location: str = ""
 
 @app.get("/")
 async def root():
@@ -127,3 +135,16 @@ async def analyze_farm(request: Request, farm_input: FarmInput):
     except Exception as e:
         logger.exception("An error occurred during farm risk analysis")
         raise HTTPException(status_code=500, detail=f"Analysis failed: {str(e)}")
+
+@app.post("/api/knowledge-base")
+async def query_knowledge_base(request: KnowledgeBaseRequest):
+    try:
+        result = answer_question(
+            question=request.question,
+            crop=request.crop,
+            stage=request.stage,
+            location=request.location,
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

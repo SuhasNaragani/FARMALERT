@@ -4,6 +4,7 @@ import { motion, useInView, AnimatePresence } from 'motion/react'
 import { Sprout, MapPin, Radio, FileText, ArrowRight, UserCircle, Check, Heart, Languages, Orbit } from 'lucide-react'
 import AnalysePage from './pages/AnalysePage.jsx'
 import MyFarmsPage from './pages/MyFarmsPage.jsx'
+import KnowledgeChat from './components/KnowledgeChat'
 
 // ─────────────────────────────────────────────────────────────
 // CONSTANTS
@@ -1507,11 +1508,26 @@ function LandingPage() {
 }
 
 export default function App() {
+  const [farmContext, setFarmContext] = useState(null)
+  const [showChatNotification, setShowChatNotification] = useState(false)
+
+  const handleAnalysisComplete = (context) => {
+    setFarmContext(context)
+    setShowChatNotification(true)
+  }
+
   return (
-    <Routes>
-      <Route path="/" element={<LandingPage />} />
-      <Route path="/analyse" element={<AnalysePage />} />
-      <Route path="/my-farms" element={<MyFarmsPage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/analyse" element={<AnalysePage onAnalysisComplete={handleAnalysisComplete} />} />
+        <Route path="/my-farms" element={<MyFarmsPage />} />
+      </Routes>
+      <KnowledgeChat
+        farmContext={farmContext}
+        showNotification={showChatNotification}
+        onNotificationSeen={() => setShowChatNotification(false)}
+      />
+    </>
   )
 }

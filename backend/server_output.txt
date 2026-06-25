@@ -1,0 +1,38 @@
+INFO:     Will watch for changes in these directories: ['D:\\VVT(A 2 Z)\\SKILLS AGENT\\F\\backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [21752] using WatchFiles
+INFO:     Started server process [21944]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+INFO:pinecone.index:Querying index with top_k=5
+INFO:google_genai.models:AFC is enabled with max remote calls: 10.
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+Gemini API connected - real AI advice enabled
+INFO:     127.0.0.1:59409 - "POST /api/knowledge-base HTTP/1.1" 500 Internal Server Error
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+INFO:pinecone.index:Querying index with top_k=5
+INFO:google_genai.models:AFC is enabled with max remote calls: 10.
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+INFO:     127.0.0.1:59414 - "POST /api/knowledge-base HTTP/1.1" 500 Internal Server Error
+WARNING:  WatchFiles detected changes in 'app\config.py'. Reloading...
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+INFO:pinecone.index:Querying index with top_k=5
+INFO:google_genai.models:AFC is enabled with max remote calls: 10.
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+INFO:     127.0.0.1:54268 - "POST /api/knowledge-base HTTP/1.1" 500 Internal Server Error
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+INFO:pinecone.index:Querying index with top_k=5
+INFO:google_genai.models:AFC is enabled with max remote calls: 10.
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+INFO:     127.0.0.1:54272 - "POST /api/knowledge-base HTTP/1.1" 500 Internal Server Error
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+INFO:pinecone.index:Querying index with top_k=5
+INFO:google_genai.models:AFC is enabled with max remote calls: 10.
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+INFO:     127.0.0.1:50209 - "POST /api/knowledge-base HTTP/1.1" 500 Internal Server Error
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-001:batchEmbedContents "HTTP/1.1 200 OK"
+INFO:pinecone.index:Querying index with top_k=5
+INFO:google_genai.models:AFC is enabled with max remote calls: 10.
+INFO:httpx:HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent "HTTP/1.1 429 Too Many Requests"
+INFO:     127.0.0.1:50214 - "POST /api/knowledge-base HTTP/1.1" 500 Internal Server Error

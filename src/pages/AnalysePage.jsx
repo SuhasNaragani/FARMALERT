@@ -420,7 +420,7 @@ function FieldLabel({ en, te }) {
 }
 
 // ─── Analyse Page ─────────────────────────────────────────────
-export default function AnalysePage() {
+export default function AnalysePage({ onAnalysisComplete }) {
   const [location, setLocation]       = useState(null)
   const [locationName, setLocationName] = useState('')
   const [locationQuery, setLocationQuery] = useState('')
@@ -523,6 +523,16 @@ export default function AnalysePage() {
 
   const completeLoadingWithResults = data => {
     setAnalysisData(data)
+    if (onAnalysisComplete) {
+      onAnalysisComplete({
+        crop: data.selected_crop || selectedCrop,
+        stage: cropStage || "",
+        soil: soilType || "",
+        locationName: data.location_name || locationName,
+        lat: data.location?.lat || location?.lat,
+        lng: data.location?.lng || location?.lng,
+      })
+    }
     setLoadingComplete(true)
     const elapsed = Date.now() - loadingStartedAt.current
     const remaining = Math.max(0, MIN_LOADING_MS - elapsed)

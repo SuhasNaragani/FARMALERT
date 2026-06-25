@@ -3,7 +3,10 @@
     "allow": [
       "Bash(gh repo *)",
       "WebFetch(domain:github.com)",
-      "PowerShell(Get-ChildItem \"$env:APPDATA\\\\Antigravity\\\\User\" -Force -ErrorAction SilentlyContinue | Select-Object FullName, Name)"
+      "PowerShell(Get-ChildItem \"$env:APPDATA\\\\Antigravity\\\\User\" -Force -ErrorAction SilentlyContinue | Select-Object FullName, Name)",
+      "PowerShell(& \"d:\\\\VVT\\(A 2 Z\\)\\\\SKILLS AGENT\\\\F\\\\backend\\\\venv\\\\Scripts\\\\pip.exe\" show python-dotenv 2>&1)",
+      "PowerShell($env:USERPROFILE; Get-ChildItem \"$env:USERPROFILE\" -Directory | Select-Object Name)",
+      "PowerShell(Start-Process powershell -ArgumentList \"-NoExit\", \"-Command\", \"cd 'D:\\\\VVT\\(A 2 Z\\)\\\\SKILLS AGENT\\\\F\\\\backend'; python -m uvicorn app.main:app --reload --port 8000\" -WindowStyle Normal)"
     ]
   }
 }
