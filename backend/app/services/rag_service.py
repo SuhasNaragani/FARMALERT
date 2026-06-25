@@ -34,8 +34,9 @@ def _retrieve_chunks(query_vector: list[float], top_k: int = 5) -> list[str]:
     return [match.metadata["text"] for match in results.matches]
 
 def _generate_answer(question: str, chunks: list[str]) -> str:
-    context = "\n\n---\n\n".join(chunks)
-    prompt = f"""You are a knowledgeable agricultural assistant helping smallholder farmers in Telangana, India.
+    try:
+        context = "\n\n---\n\n".join(chunks)
+        prompt = f"""You are a knowledgeable agricultural assistant helping smallholder farmers in Telangana, India.
 Answer the farmer's question using ONLY the context provided below.
 If the answer is not found in the context, say: "I don't have specific information about that in my knowledge base. Please consult your local agricultural extension officer."
 Be practical, specific, and clear. Keep the answer concise (under 200 words).
@@ -47,11 +48,16 @@ FARMER'S QUESTION:
 {question}
 
 ANSWER:"""
-    response = _genai_client.models.generate_content(
-        model="gemini-2.5-flash",
-        contents=prompt,
-    )
-    return response.text.strip()
+        response = _genai_client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+        )
+        return response.text.strip()
+    except Exception as e:
+        import traceback
+        print(f"GENERATION ERROR: {e}")
+        print(traceback.format_exc())
+        raise
 
 def answer_question(question: str, crop: str = "", stage: str = "", location: str = "") -> dict:
     # Build cache key from full context
